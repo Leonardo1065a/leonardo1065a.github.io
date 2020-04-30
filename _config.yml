@@ -1,8 +1,8 @@
 # Website details
-name: Daniel Rodrigues
+name: Leonardo Silva
 description: Developer Full Stack
-email: danielrdesousa@gmail.com.com
-author: dnielrdeousa
+email: leonardoplxy@gmail.com
+author: leonardosilva
 lang: pt
 locale: pt_BR
 
@@ -15,7 +15,7 @@ timezone: America/Fortaleza
 paginateLabel: pagina
 paginate_path: "page/:num"
 permalink: /:categories/:year/:month/:day/:title
-baseurl: https://danielrdesousa.github.io
+baseurl: https://leonardo1065a.github.io/
 
 # Includes
 addthisId: ""
