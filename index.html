@@ -1,0 +1,73 @@
+---
+layout: default
+---
+
+<!-- Don't show pagination bar in homepage -->
+{% if paginator.page > 1 %}
+
+  <!-- Include pagination bar -->
+  {% include pagination.html section="top" %}
+
+{% endif %}
+
+<!-- Loop for posts by paginator -->
+{% for post in paginator.posts %}
+
+  <!-- Article -->
+  <article>
+
+    <!-- Article title -->
+    <a href="{{ site.baseurl }}{{ post.url }}" class="h1">{{ post.title }}</a>
+
+      <!-- If article has a cover photo -->
+      {% if post.coverPhoto %}
+
+        <!-- Article image with aspect ratio -->
+        <a href="{{ site.baseurl }}{{ post.url }}" class="ar-container">
+          <span class="ar-content" style="background-image: url({{ post.coverPhoto }});"></span>
+        </a><!-- .ar-container -->
+
+      {% endif %}
+
+    <!-- Article pre description -->
+    <section class="max-height">{{ post.content | strip_html | slice: 0, 200 }}</section>
+
+    <!-- Article date & article continue reading button container -->
+    <div class="article__bottom">
+
+      <!-- Article date -->
+      <span class="article__date">
+        {% if site.lang != "tr" %}
+          {% assign m = post.date | date: "%-m" %}
+          {{ post.date | date: "%-d" }} 
+          {% case m %}
+            {% when "1" %}JAN 
+            {% when "2" %}FEV 
+            {% when "3" %}MAR 
+            {% when "4" %}ABR 
+            {% when "5" %}MAI 
+            {% when "6" %}JUN 
+            {% when "7" %}JUL 
+            {% when "8" %}AGO 
+            {% when "9" %}SET 
+            {% when "10" %}OUT 
+            {% when "11" %}NOV 
+            {% when "12" %}DEZ 
+          {% endcase %}
+          {{ post.date | date: "%Y" }}
+        {% else %}
+          {{ post.date | date_to_long_string | upcase }}
+        {% endif %}
+      </span>
+
+      <!-- Article continue reading button -->
+      <a class="article__button" href="{{ site.baseurl }}{{ post.url }}">{% if site.lang == "tr" %}DEVAMINI OKU{% else %}CONTINUAR LENDO{% endif %}</a>
+
+    </div><!-- .article__bottom -->
+
+  </article><!-- article -->
+
+{% endfor %}
+
+<!-- Include pagination bar -->
+{% include pagination.html section="bottom" %}
