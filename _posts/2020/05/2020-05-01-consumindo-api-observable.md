@@ -118,7 +118,9 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
         }
 </pre>
 
-post
+Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
+Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
+Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
 
 ## 4.3 PUT()
 
@@ -132,9 +134,11 @@ post
         }
 </pre>
 
-put
+Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
+Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
+Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
 
-## 4.2 DELETE()
+## 4.4 DELETE()
 
 <pre class="pure">
         delete(id: number): Observable<Object> {
@@ -142,4 +146,6 @@ put
         }
 </pre>
 
-delete
+Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
+Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
+Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
