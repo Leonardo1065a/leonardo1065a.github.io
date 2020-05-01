@@ -58,11 +58,11 @@ Esse serviço é onde nós usaremos o observable para consumir a API
 Nossa interface, deve ser feita, de  acordo com os dados que vamos trabalhar.<br>
 No typeScript, podemos tipar nossas variáveis. Sendo assim criando um contrato, que deve ser seguido.
 
-> export interface Post {
->     userId: number;
->     id: number;
->     title: string;
->     body: string;
+> export interface Post {<br>
+>     userId: number;<br>
+>     id: number;<br>
+>     title: string;<br>
+>     body: string;<br>
 > }
 
 essas variáveis, foram criadas a partir da nossa <a href="https://jsonplaceholder.typicode.com/posts" target="_blank">API fake</a>
@@ -72,27 +72,29 @@ essas variáveis, foram criadas a partir da nossa <a href="https://jsonplacehold
 Vamos utilizar o httpClient para fazer as requisições via http<br> 
 Em nosso app.module.ts, vamos importar o HttpClienteModule
 
-> import { HttpClientModule } from '@angular/common/http';
-> imports: [ HttpClientModule ]
+> import { HttpClientModule } from '@angular/common/http';<br>
+> imports: [ HttpClientModule ]<br>
 
 Agora estamos pronto para usar o httpClient<br>
 No arquivo post.service.ts, vamos fazer a injeção dele, em nosso servico
 
-> import { HttpClient } from '@angular/common/http';
+> import { HttpClient } from '@angular/common/http';<br>
 > constructor(private http: HttpClient) { }
 
 Criaremos a constante API_BASE<br>
 Usuaremos uma API fake
+
 > const API_BASE = 'https://jsonplaceholder.typicode.com'; 
+
 Ela tem a nossa URI base
 
 Agora ja podemos fazer nossa primeira requisição via http
 
-> get(): Observable<Post[]>{
->     return this.http.get<Post[]>(`${ API_BASE }/posts`)
->       .pipe(
->         map((res: any) => res.json() ),
->         catchError((err: any) => throwError(err.json())));
+> get(): Observable<Post[]>{<br>
+>     return this.http.get<Post[]>(`${ API_BASE }/posts`)<br>
+>       .pipe(<br>
+>         map((res: any) => res.json() ),<br>
+>         catchError((err: any) => throwError(err.json())));<br>
 > }
 
 Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
