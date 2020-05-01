@@ -316,7 +316,7 @@ Aqui vou disponibilizar os arquivos post.service.ts, post.component.ts epost.res
 
                 form: Post = {userId: 1, title: 'Observable', body: 'Angular e RxJs'};
 
-                formUpdate: Post = {id: 1, userId: 1, title: 'Observable update', 
+                formUpdate: Post = {id: 1, userId: 1, title: 'Observable update', <br>
                 body: 'Angular e RxJs update'};
 
                 formId: number = 10;
