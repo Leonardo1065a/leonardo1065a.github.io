@@ -443,7 +443,6 @@ main {
       blockquote,
       div,
       p,
-      pre,
       .ar-container,
       > .max-height,
       > section > ol,
@@ -491,8 +490,8 @@ main {
       
 
       /* Aspect ratio container*/
-      img,
-      pre {
+      img
+       {
         /* Mobile */
         @media (max-width: $mobile-max) {
           margin-left: -$containerPadding-mobile !important;
