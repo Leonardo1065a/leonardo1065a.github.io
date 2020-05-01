@@ -118,6 +118,8 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
         }
 </pre>
 
+post
+
 ## 4.3 PUT()
 
 <pre class="pure">
@@ -130,6 +132,8 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
         }
 </pre>
 
+put
+
 ## 4.2 DELETE()
 
 <pre class="pure">
@@ -137,3 +141,5 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
             return this.http.delete(String(id));
         }
 </pre>
+
+delete
