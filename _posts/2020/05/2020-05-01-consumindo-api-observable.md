@@ -93,8 +93,8 @@ Agora ja podemos fazer nossa primeira requisição via http<br>
 ## 4.1 GET()
 
 <pre class="pure">
-            get(): Observable<Post[]>{
-                return this.http.get<Post[]>(`${ API_BASE }/posts`)
+            get(): Observable< Post[] >{
+                return this.http.get(`${ API_BASE }/posts`)
                 .pipe(
                     map((res: any) => res.json() ),
                     catchError((err: any) => throwError(err.json())),
@@ -102,14 +102,14 @@ Agora ja podemos fazer nossa primeira requisição via http<br>
             }
 </pre>
 
-Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
-Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
+Na primeira linha, estamos criando nosso método get(), com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
+Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) http.get(), que é o tipo de requisição que será feita. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
 Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
 
 ## 4.2 POST()
 
 <pre class="pure">
-        post(post: Post): Observable<Post[]> {
+        post(post: Post): Observable< Post > {
             return this.http.post(`${ API_BASE }/posts`, post)
                 .pipe(
                     map((res: any) => res.json() ),
@@ -118,14 +118,14 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
         }
 </pre>
 
-Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
-Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
-Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
+Na primeira linha, estamos criando nosso método post. O observable espera o post que foi criado<br>
+Na segunda, é nosso retono. http.post(), que é o tipo de requisição que será feita. Podemos perceber que estamos usando a mesma rota, porém nosso http agora é post(), e não o get(). e como um post precisa de um body, estamos passando o $post que desejamos criar<br>
+O restante é a mesma coisa do get
 
 ## 4.3 PUT()
 
 <pre class="pure">
-        put(post: Post): Observable<Post[]> {
+        put(post: Post): Observable< Post > {
             return this.http.put(`${ API_BASE }/posts/${ post.id }`, post)
             .pipe(
                 map((res: any) => res.json() ),
@@ -134,18 +134,17 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
         }
 </pre>
 
-Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
-Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
-Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
+Na primeira linha, estamos criando nosso método put(), e como o post(), o observable espera o post que foi atualizado<br>
+Na segunda, é nosso retono. Agora estamos usando o http.put(). Agora acrescentou em nossa rota um $id, que identificará o post a ser atualizado, e em seguida passamos o body, que é as novas informações do post<br>
+O restante é a mesma coisa do post
 
 ## 4.4 DELETE()
 
 <pre class="pure">
         delete(id: number): Observable<Object> {
-            return this.http.delete(String(id));
+            return this.http.delete(`${ API_BASE }/posts/${ id }`);
         }
 </pre>
 
-Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
-Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
-Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
+Na primeira linha, estamos criando nosso método delete(), e retona um observable do tipo Object.<br>
+Na segunda, é nosso retono. Agora estamos usando o http.delete(). Como o put(), passamos em nossa rota um $id. Nese caso identificará o post a ser deletado<br>
