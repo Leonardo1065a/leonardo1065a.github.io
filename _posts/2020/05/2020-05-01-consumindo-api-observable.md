@@ -58,12 +58,14 @@ Esse serviço é onde nós usaremos o observable para consumir a API
 Nossa interface, deve ser feita, de  acordo com os dados que vamos trabalhar.<br>
 No typeScript, podemos tipar nossas variáveis. Sendo assim criando um contrato, que deve ser seguido.
 
-> export interface Post {<br>
->     userId: number;<br>
->     id: number;<br>
->     title: string;<br>
->     body: string;<br>
-> }
+<pre class="pure">
+            export interface Post {
+                userId: number;
+                id: number;
+                title: string;
+                body: string;
+            }        
+</pre>
 
 essas variáveis, foram criadas a partir da nossa <a href="https://jsonplaceholder.typicode.com/posts" target="_blank">API fake</a>
 
@@ -72,71 +74,83 @@ essas variáveis, foram criadas a partir da nossa <a href="https://jsonplacehold
 Vamos utilizar o httpClient para fazer as requisições via http<br> 
 Em nosso app.module.ts, vamos importar o HttpClienteModule
 
-> import { HttpClientModule } from '@angular/common/http';<br>
-> imports: [ HttpClientModule ]<br>
+<pre class="pure">
+            import { HttpClientModule } from '@angular/common/http';
+            imports: [ HttpClientModule ]      
+</pre>
 
 Agora estamos pronto para usar o httpClient<br>
 No arquivo post.service.ts, vamos fazer a injeção dele, em nosso servico
 
-> import { HttpClient } from '@angular/common/http';<br>
-> constructor(private http: HttpClient) { }
+<pre class="pure">
+            import { HttpClient } from '@angular/common/http';<br>
+            constructor(private http: HttpClient) { }     
+</pre>
 
-Criaremos a constante API_BASE<br>
+Criaremos a constante API_BASE logo abaixo dos imports<br>
 Usuaremos uma API fake
 
-> const API_BASE = 'https://jsonplaceholder.typicode.com'; 
+<pre class="pure">
+            const API_BASE = 'https://jsonplaceholder.typicode.com';    
+</pre>
 
 Ela tem a nossa URI base<br>
 
 Agora ja podemos fazer nossa primeira requisição via http<br>
+
+## 4.1 Result()
+
+Criaremos um método para mapear nosso retono
+
+<pre class="pure">
+            result(){
+                return pipe(
+                    map((res: any) => res.json() ),
+                    catchError((err: any) => throwError(err.json())),
+                    map((res) => res));
+            }  
+</pre>
+
+ Esse método é bem simples, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
 
 ## 4.1 GET()
 
 <pre class="pure">
             get(): Observable< Post[] >{
                 return this.http.get(`${ API_BASE }/posts`)
-                .pipe(
-                    map((res: any) => res.json() ),
-                    catchError((err: any) => throwError(err.json())),
-                    map((res) => res));
+                .pipe(this.result());
             }
 </pre>
 
 Na primeira linha, estamos criando nosso método get(), com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
 Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) http.get(), que é o tipo de requisição que será feita. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
-Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
+Depois só chamamos o metodo result() para tratar nosso retorno
 
 ## 4.2 POST()
 
 <pre class="pure">
         post(post: Post): Observable< Post > {
             return this.http.post(`${ API_BASE }/posts`, post)
-                .pipe(
-                    map((res: any) => res.json() ),
-                    catchError((err: any) => throwError(err.json())),
-                    map((res) => res));
+                .pipe(this.result());
         }
 </pre>
 
 Na primeira linha, estamos criando nosso método post. O observable espera o post que foi criado<br>
 Na segunda, é nosso retono. http.post(), que é o tipo de requisição que será feita. Podemos perceber que estamos usando a mesma rota, porém nosso http agora é post(), e não o get(). e como um post precisa de um body, estamos passando o $post que desejamos criar<br>
-O restante é a mesma coisa do get
+Depois chamamos o result()
 
 ## 4.3 PUT()
 
 <pre class="pure">
         put(post: Post): Observable< Post > {
             return this.http.put(`${ API_BASE }/posts/${ post.id }`, post)
-            .pipe(
-                map((res: any) => res.json() ),
-                catchError((err: any) => throwError(err.json())),
-                map((res) => res));
+            .pipe(this.result());
         }
 </pre>
 
 Na primeira linha, estamos criando nosso método put(), e como o post(), o observable espera o post que foi atualizado<br>
 Na segunda, é nosso retono. Agora estamos usando o http.put(). Agora acrescentou em nossa rota um $id, que identificará o post a ser atualizado, e em seguida passamos o body, que é as novas informações do post<br>
-O restante é a mesma coisa do post
+E logo em seguinda o result()
 
 ## 4.4 DELETE()
 
