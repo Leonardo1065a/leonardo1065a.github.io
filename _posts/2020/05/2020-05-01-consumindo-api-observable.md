@@ -74,7 +74,7 @@ Vamos utilizar o httpClient para fazer as requisições via http. Em nosso app.m
 Agora estamos pronto para usar o httpClient
 Vamos fazer a injeção dele, em nosso servico
 <pre>
-    constructor(private http: HttpClient) { }
+                    constructor(private http: HttpClient) { }
 </pre>
 
 Agora ja podemos fazer nossa primeira requisição via http
