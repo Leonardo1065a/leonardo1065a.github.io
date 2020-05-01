@@ -141,7 +141,7 @@ O restante é a mesma coisa do post
 ## 4.4 DELETE()
 
 <pre class="pure">
-        delete(id: number): Observable<Object> {
+        delete(id: number): Observable< Object > {
             return this.http.delete(`${ API_BASE }/posts/${ id }`);
         }
 </pre>
