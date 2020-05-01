@@ -67,7 +67,7 @@ No typeScript, podemos tipar nossas variáveis. Sendo assim criando um contrato,
 
 essas variáveis, foram criadas a partir da nossa <a href="https://jsonplaceholder.typicode.com/posts" target="_blank">API fake</a>
 
-## 4. Criando o serviço
+## 4. Criando os serviços
 
 Vamos utilizar o httpClient para fazer as requisições via http<br> 
 Em nosso app.module.ts, vamos importar o HttpClienteModule
@@ -86,19 +86,54 @@ Usuaremos uma API fake
 
 > const API_BASE = 'https://jsonplaceholder.typicode.com'; 
 
-Ela tem a nossa URI base
+Ela tem a nossa URI base<br>
 
-Agora ja podemos fazer nossa primeira requisição via http
+Agora ja podemos fazer nossa primeira requisição via http<br>
 
-<pre>
-        get(): Observable<Post[]>{<br>
-            return this.http.get<Post[]>('${ API_BASE }/posts')<br>
-            .pipe(<br>
-                map((res: any) => res.json() ),<br>
-                catchError((err: any) => throwError(err.json())));<br>
-        }
+## 4.1 GET()
+
+<pre class="pure">
+            get(): Observable<Post[]>{
+                return this.http.get<Post[]>(`${ API_BASE }/posts`)
+                .pipe(
+                    map((res: any) => res.json() ),
+                    catchError((err: any) => throwError(err.json())),
+                    map((res) => res));
+            }
 </pre>
 
 Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
 Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
-Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(), e por fim, fazemos a mesma coisa, caso ocorra um erro. 
+Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(). Depois fazemos a mesma coisa, caso ocorra um erro. E por fim, o retorno com map().
+
+## 4.2 POST()
+
+<pre class="pure">
+        post(post: Post): Observable<Post> {
+            return this.http.post(`${ API_BASE }/posts`, post)
+                .pipe(
+                    map((res: any) => res.json() ),
+                    catchError((err: any) => throwError(err.json())),
+                    map((res) => res));
+        }
+</pre>
+
+## 4.3 PUT()
+
+<pre class="pure">
+        put(post: Post): Observable<Post> {
+            return this.http.put(`${ API_BASE }/posts/${ post.id }`, post)
+            .pipe(
+                map((res: any) => res.json() ),
+                catchError((err: any) => throwError(err.json())),
+                map((res) => res));
+        }
+</pre>
+
+## 4.2 DELETE()
+
+<pre class="pure">
+        delete(id: number): Observable<Object> {
+            return this.http.delete(String(id));
+        }
+</pre>
