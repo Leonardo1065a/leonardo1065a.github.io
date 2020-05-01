@@ -109,7 +109,7 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
 ## 4.2 POST()
 
 <pre class="pure">
-        post(post: Post): Observable<{PostRe}> {
+        post(post: Post): Observable<Post[]> {
             return this.http.post(`${ API_BASE }/posts`, post)
                 .pipe(
                     map((res: any) => res.json() ),
@@ -125,7 +125,7 @@ Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos c
 ## 4.3 PUT()
 
 <pre class="pure">
-        put(post: Post): Observable<PostRe> {
+        put(post: Post): Observable<Post[]> {
             return this.http.put(`${ API_BASE }/posts/${ post.id }`, post)
             .pipe(
                 map((res: any) => res.json() ),
