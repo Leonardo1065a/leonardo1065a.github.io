@@ -90,13 +90,15 @@ Ela tem a nossa URI base
 
 Agora ja podemos fazer nossa primeira requisição via http
 
-> get(): Observable<Post[]>{<br>
->     return this.http.get<Post[]>(`${ API_BASE }/posts`)<br>
->       .pipe(<br>
->         map((res: any) => res.json() ),<br>
->         catchError((err: any) => throwError(err.json())));<br>
-> }
+<pre>
+        get(): Observable<Post[]>{<br>
+            return this.http.get<Post[]>('${ API_BASE }/posts')<br>
+            .pipe(<br>
+                map((res: any) => res.json() ),<br>
+                catchError((err: any) => throwError(err.json())));<br>
+        }
+</pre>
 
 Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
-Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, onde tipamos ela também. dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
+Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, e tipamos ela também. Dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
 Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(), e por fim, fazemos a mesma coisa, caso ocorra um erro. 

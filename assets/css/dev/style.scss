@@ -488,6 +488,7 @@ main {
           } /* &:first-child */
         } /* * */
       } /* blockquote */
+      
 
       /* Aspect ratio container*/
       img,
@@ -840,4 +841,11 @@ footer {
 }
 /* Personal computers */
 @media (min-width: $computer-min) {
+}
+
+pre{
+    width: 120%;
+    background: #f9f9f9;
+    padding: 20px 50px;
+    color: #69757c;
 }
