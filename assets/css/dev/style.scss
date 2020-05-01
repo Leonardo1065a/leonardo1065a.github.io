@@ -443,6 +443,7 @@ main {
       blockquote,
       div,
       p,
+      pre,
       .ar-container,
       > .max-height,
       > section > ol,
@@ -487,11 +488,10 @@ main {
           } /* &:first-child */
         } /* * */
       } /* blockquote */
-      
 
       /* Aspect ratio container*/
-      img
-       {
+      img,
+      pre {
         /* Mobile */
         @media (max-width: $mobile-max) {
           margin-left: -$containerPadding-mobile !important;
@@ -840,11 +840,4 @@ footer {
 }
 /* Personal computers */
 @media (min-width: $computer-min) {
-}
-
-pre{
-    width: 120%;
-    background: #f9f9f9;
-    padding: 20px 50px;
-    color: #69757c;
 }
