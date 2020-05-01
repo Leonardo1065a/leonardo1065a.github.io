@@ -30,59 +30,71 @@ Para abrirmos o projeto no Visual Studio Code, basta ir na raiz do projeto e dig
 
 > code .
 
-## 2. Criando o Componente e Interface
+## 2. Criando componente, serviço e interface
 
+Em primeiro lugar, vamos acessar a pasta onde iremos criar os arquivos necessários
 > cd src/app/
-> ng generate component usuario
 
-Esse é o componente que iremos usar para consumir os serviços
+Em segundo, criaremos o nosso componente 
 
-> ng g interface resource/usuario resource
+> ng generate component post
+
+Esse é o componente que iremos usar para consumir os serviços<br>
+
+Em terceiro, nossa interface
+
+> ng g interface resource/post resource
 
 Essa interface servirá para tiparmos o retorno do observable
 
-## 3. Criando o Service
+Em quarto, o serviço 
 
-> ng generate service services/usuario
+> ng generate service services/post
 
-Nesse arquivo é onde nós usaremos o observable para consumir a API
+Esse serviço é onde nós usaremos o observable para consumir a API
+
+## 3. Criando nossa Interface
+
+Nossa interface, deve ser feita, de  acordo com os dados que vamos trabalhar.<br>
+No typeScript, podemos tipar nossas variáveis. Sendo assim criando um contrato, que deve ser seguido.
+
+> export interface Post {
+>     userId: number;
+>     id: number;
+>     title: string;
+>     body: string;
+> }
+
+essas variáveis, foram criadas a partir da nossa <a href="https://jsonplaceholder.typicode.com/posts" target="_blank">API fake</a>
 
 ## 4. Criando o serviço
 
-Vamos utilizar o httpClient para fazer as requisições via http. Em nosso app.module.ts, vamos importar o HttpClienteModule
-<pre>
-                    import { BrowserModule } from '@angular/platform-browser';
-                    import { NgModule } from '@angular/core';
-                    <strong>import { HttpClientModule } from '@angular/common/http';</strong>
+Vamos utilizar o httpClient para fazer as requisições via http<br> 
+Em nosso app.module.ts, vamos importar o HttpClienteModule
 
-                    import { AppComponent } from './app.component';
+> import { HttpClientModule } from '@angular/common/http';
+> imports: [ HttpClientModule ]
 
-                    @NgModule({
-                    declarations: [
-                        AppComponent,
-                    ],
-                    imports: [
-                        BrowserModule,
-                        <strong>HttpClientModule</strong>
-                    ],
-                    providers: [],
-                    bootstrap: [AppComponent]
-                    })
-                    export class AppModule { }
-</pre>
+Agora estamos pronto para usar o httpClient<br>
+No arquivo post.service.ts, vamos fazer a injeção dele, em nosso servico
 
-Agora estamos pronto para usar o httpClient
-Vamos fazer a injeção dele, em nosso servico
-<pre>
-                    constructor(private http: HttpClient) { }
-</pre>
+> import { HttpClient } from '@angular/common/http';
+> constructor(private http: HttpClient) { }
+
+Criaremos a constante API_BASE<br>
+Usuaremos uma API fake
+> const API_BASE = 'https://jsonplaceholder.typicode.com'; 
+Ela tem a nossa URI base
 
 Agora ja podemos fazer nossa primeira requisição via http
 
-<pre>
-                    get(): Observable<UsuarioResource[]>{
-                        return this.http.get<UsuarioResource[]>(`${ API_BASE }/todos`)
-                        .pipe(map((res: any) => res.json() ),
-                            catchError((err: any) => throwError(err.json())));
-                    }
-</pre>
+> get(): Observable<Post[]>{
+>     return this.http.get<Post[]>(`${ API_BASE }/posts`)
+>       .pipe(
+>         map((res: any) => res.json() ),
+>         catchError((err: any) => throwError(err.json())));
+> }
+
+Na priemira linha, estamos criando nosso método com um retono do tipo observable, com tipo post[]. O quer significa que nosso observable espera uma lista de post<br>
+Na segunda, é nosso retono, estamos usando o http(que injetamos em nosso contrutor) .get, que é o tipo de requisição que será feita, onde tipamos ela também. dentro do parenteses, estamos passando a URI, que retonara nosso arrays de post<br>
+Logo em seguida, usamos o pipe, para o retorno ser tratado, em seguida estamos convertando o retorno, para o formato json(), e por fim, fazemos a mesma coisa, caso ocorra um erro. 
