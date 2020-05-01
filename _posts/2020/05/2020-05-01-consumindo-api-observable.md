@@ -68,7 +68,7 @@ No typeScript, podemos tipar nossas variáveis. Sendo assim criando um contrato,
 </pre>
 
 essas variáveis, foram criadas a partir da nossa <a href="https://jsonplaceholder.typicode.com/posts" target="_blank">API fake</a><br>
-Observe que na variável $id, temos um "?", isso significa que a variável não é obrigatorio, você vai saber o motivo mais a frente
+Observe que na variável $id, temos um "?", isso significa que a variável não é obrigatorio, você vai saber o motivo mais na frente
 
 ## 4. Criando os serviços
 
